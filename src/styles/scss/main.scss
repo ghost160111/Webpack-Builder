@@ -1,0 +1,327 @@
+:root {
+  --scroll-width: 0px;
+
+  /* Base font-size */
+  --base-fz: 16;
+
+  --f-min: 12;
+  --f-min-px: 12px;
+  --f-max: 16;
+
+  --vw-min: 1024;
+  --vw-min-px: 1024px;
+  --vw-max: 1920;
+
+  /* Base spaces */
+  @include spaces(19.2, vw);
+
+  /* Base colors */
+  --white: #{$white};
+  --black: #{$black};
+
+  --green: #{$green};
+  --yellow: #{$yellow};
+  --red: #{$red};
+  --blue: #{$blue};
+  --input-bg: #{$inputBg};
+  --input-text: #{$inputText};
+  --checkbox: #{$checkbox};
+  --bg: #{$bg};
+  --disabled: #CCD2DE;
+  --filter-des-txt: #BEBFC6;
+  --modal-border: #{$modalBorder};
+
+  --btn-height: #{rem(48)};
+  --btn-width: #{rem(120)};
+
+  --animation: 0.3s ease;
+
+  --f1: #{$font}, sans-serif;
+
+  @media #{$md-and-down} {
+    --btn-height: 40px;
+    --btn-width: 130px;
+    --header-height: 60px;
+  }
+
+  @media (max-width: $tablet-view) {
+    /* Base font-size */
+    --base-fz: 16;
+
+    --f-min: 12;
+    --f-min-px: 12px;
+    --f-max: 16;
+
+    --vw-min: 768;
+    --vw-min-px: 768px;
+    --vw-max: 1280;
+  }
+
+  @media (max-width: $mobile-view), (max-height: 500px) {
+    /* Base font-size */
+    --base-fz: 14;
+
+    --f-min: 14;
+    --f-min-px: 14px;
+    --f-max: 14;
+
+    --vw-min: 360;
+    --vw-min-px: 360px;
+    --vw-max: 768;
+
+    /* Base spaces */
+    @include spaces(2, px);
+
+    --btn-width: 100%;
+  }
+}
+
+html .fancybox__container {
+  z-index: 10050;
+}
+
+.v-application {
+  &.theme--light.v-application {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  /*& .v-dialog__content {
+    align-items: flex-start;
+  }*/
+
+  & .v-dialog {
+    margin: 52px;
+
+    &::-webkit-scrollbar {
+      background-color: rgba(57, 57, 57, 0.8);
+      width: rem(3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #666;
+      border-radius: 50px;
+    }
+
+    @media #{$xsOnly} {
+      margin: 0;
+    }
+  }
+
+  @media #{$xsOnly} {
+    .v-dialog:not(.v-dialog--fullscreen) {
+      max-height: calc(100% - 30px);
+    }
+  }
+
+  .v-tabs-bar {
+    height: 40px;
+    display: inline-flex;
+    border-radius: 8px;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .v-tabs:not(.v-tabs--vertical) .v-tab--active {
+    color: var(--white);
+    border-radius: 8px;
+  }
+
+  .v-tab {
+    background: none;
+    transition: all var(--animation);
+    text-transform: none;
+    height: 36px;
+    margin: 2px;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: normal;
+
+    &::before {
+      background: none;
+      border-radius: 8px;
+      transition: all var(--animation);
+    }
+
+    & .v-ripple__container {
+      display: none;
+      border-radius: 8px;
+    }
+  }
+
+  .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) {
+    color: var(--black);
+  }
+
+  .v-tabs:not(.v-tabs--vertical):not(.v-tabs--right) > .v-slide-group--is-overflowing.v-tabs-bar--is-mobile:not(.v-slide-group--has-affixes) .v-slide-group__prev {
+    display: none;
+  }
+
+  .v-tabs-slider-wrapper {
+    background: none;
+    z-index: -1;
+    border-radius: 8px;
+    height: 36px !important;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+  }
+
+  .v-tabs-slider {
+    background-color: var(--blue);
+    border-radius: rem(8);
+  }
+
+  .v-text-field--outlined > .v-input__control > .v-input__slot {
+    min-height: var(--btn-height);
+  }
+
+  .v-text-field--enclosed .v-input__append-inner {
+    margin-top: rem(11);
+  }
+
+  .v-text-field--outlined fieldset {
+    display: none;
+  }
+
+  .v-menu__content {
+    border-radius: rem(10);
+  }
+
+  .v-text-field--outlined, .v-text-field--solo {
+    border-radius: rem(10);
+    border: none;
+  }
+
+  .v-text-field.v-text-field--solo .v-input__control {
+    min-height: var(--btn-height);
+  }
+
+  .v-text-field.v-text-field--enclosed.input-error {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      z-index: 5;
+      pointer-events: none;
+      box-shadow: inset 0 0 0 2px red;
+    }
+  }
+
+  .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot {
+    padding: 0 rem(16);
+    box-shadow: none;
+  }
+
+  .primary {
+    background-color: var(--blue);
+    border-color: var(--blue);
+  }
+
+  .v-slider--horizontal {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+
+  .theme--dark.v-navigation-drawer {
+    background-color: transparent;
+    overflow: visible;
+    margin-left: auto;
+
+    @media #{$md-and-down} {
+      background-color: black;
+      overflow: hidden;
+      //height: 100vh !important;
+    }
+
+    @media #{$lgAndUp} {
+      transform: none !important;
+    }
+  }
+
+  .v-navigation-drawer__content {
+    display: flex;
+    align-items: center;
+    overflow: visible;
+
+    @media #{$md-and-down} {
+      padding: 20px;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .v-navigation-drawer--absolute {
+    @media #{$md-and-down} {
+      height: 100vh !important;
+    }
+  }
+
+  .v-navigation-drawer__border {
+    display: none;
+  }
+
+  .v-expansion-panels {
+    border-radius: 0;
+
+    .v-expansion-panel-header {
+      font-weight: 500;
+      font-size: rem(16);
+      line-height: em(22, 16);
+      padding: 0;
+      //padding: rem(24) 0;
+      //    min-height: auto;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    .v-expansion-panel {
+      /*&:not(:last-child) {
+        border-bottom: 1px solid #2F3042;
+        border-radius: 0 !important;
+        padding-bottom: rem(34);
+      }*/
+
+      &--active {
+        .v-expansion-panel-header {
+          //min-height: auto;
+        }
+      }
+    }
+
+    .v-expansion-panel-content__wrap {
+      padding: 1px;
+    }
+
+    &.theme--dark {
+      .v-expansion-panel {
+        background-color: transparent;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    .v-expansion-panel--active:not(:first-child)::after, .v-expansion-panel--active + .v-expansion-panel::after {
+      opacity: 1;
+    }
+  }
+}
+
+.mobile-drawer-button-close {
+  position: absolute;
+  width: rem(15);
+  height: rem(15);
+  right: rem(15);
+  top: rem(15);
+}

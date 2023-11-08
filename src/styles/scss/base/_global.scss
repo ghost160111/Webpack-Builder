@@ -1,0 +1,153 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    background-color: var(--bg);
+    width: rem(8);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: rem(4);
+  }
+}
+
+body {
+  min-height: 100%;
+  //overflow: hidden;
+  //overflow-y: auto;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  background-color: lighten($bg, 5%);
+  color: var(--white);
+
+  & .v-application {
+    font-family: var(--f1);
+  }
+}
+
+a {
+  color: var(--red);
+
+  &:hover {
+    color: var(--red);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--f1);
+  line-height: 1.5;
+  font-weight: 600;
+  color: inherit;
+  margin: {
+    top: 0;
+    bottom: var(--space-25);
+  }
+}
+
+b {
+  font-weight: 700;
+}
+
+.svg-wrap {
+  line-height: 0;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #E0E0E0;
+  margin-top: var(--space-30);
+  margin-bottom: var(--space-40);
+}
+
+textarea {
+  font-family: var(--f1);
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.layout-enter-active, .layout-leave-active,
+.page-enter-active, .page-leave-active {
+  transition: opacity .15s;
+}
+
+.layout-enter, .layout-leave-active,
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
+
+.fade-page-enter-active, .fade-page-leave-active {
+  transition: opacity .15s;
+}
+
+.fade-page-enter, .fade-page-leave-to /* .fade-leave-active до версии 2.1.8 */
+{
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */
+{
+  opacity: 0;
+  overflow: hidden;
+}
+
+.fade-up-enter-active, .fade-up-leave-active {
+  transition: all .2s;
+}
+
+.fade-up-enter, .fade-up-leave-to /* .fade-leave-active до версии 2.1.8 */
+{
+  transform: translateY(-10px);
+  opacity: 0;
+  overflow: hidden;
+}
+
+.fade-right-enter-active, .fade-right-leave-active {
+  transition: all .2s;
+}
+
+.fade-right-enter, .fade-right-leave-to /* .fade-leave-active до версии 2.1.8 */
+{
+  transform: translateX(10px);
+  opacity: 0;
+  overflow: hidden;
+}
+
+.fade-scale-enter-active, .fade-scale-leave-active {
+  transition: all .2s;
+}
+
+.fade-scale-enter, .fade-scale-leave-to /* .fade-leave-active до версии 2.1.8 */
+{
+  transform: scale(0.75);
+  opacity: 0;
+  overflow: hidden;
+}
+
+.inner-title {
+  font-weight: 600;
+  font-size: rem(32);
+  line-height: 1.25;
+  color: #1E2538;
+}
+
+button:focus:not(.focus-visible) {
+  outline: 5px auto -webkit-focus-ring-color;
+}

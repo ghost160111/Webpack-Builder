@@ -1,0 +1,12 @@
+html {
+  font-size: calc((100vw - var(--vw-min-px)) / (var(--vw-max) - var(--vw-min)) * (var(--f-max) - var(--f-min)) + var(--f-min-px)) !important;
+}
+
+body {
+  font: {
+    size: $fz;
+    weight: $fw;
+    family: $ff;
+  }
+  line-height: $lh;
+}

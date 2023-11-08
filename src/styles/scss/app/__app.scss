@@ -1,0 +1,17 @@
+@keyframes fadeIn {
+  from {
+    filter: opacity(0);
+  }
+
+  to {
+    filter: opacity(1);
+  }
+}
+
+#app {
+  animation: fadeIn 1s ease;
+}
+
+.main {
+  padding-top: rem(100);
+}

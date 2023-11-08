@@ -1,0 +1,33 @@
+$base-fz: 16;
+
+$k4: 3200px;
+$k2: 2500px;
+$notebook-view: 1366px;
+$tablet-view: 1280px;
+$mobile-view: 639px;
+
+$md-and-down: map-get($display-breakpoints, 'md-and-down');
+$lgAndDown: map-get($display-breakpoints, 'lg-and-down');
+$lgAndUp: map-get($display-breakpoints, 'lg-and-up');
+$xsOnly: map-get($display-breakpoints, 'xs-only');
+$smAndUp: map-get($display-breakpoints, 'sm-and-up');
+$smAndDown: map-get($display-breakpoints, 'sm-and-down');
+
+$font: "inter";
+
+$green: #81BE00;
+$yellow: #F7931E;
+$red: #FF3232;
+$blue: #00C1B1;
+$bg: #16171D;
+$inputBg: #2D2E34;
+$inputText: #9496B5;
+$checkbox: #5D5E70;
+$white: #fff;
+$black: #000;
+$modalBorder: #42445E;
+
+$fw: 400;
+$fz: 1rem;
+$lh: 1.5625;
+$ff: $font, "Arial", "Helvetica Neue", "sans-serif";
