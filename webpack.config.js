@@ -65,6 +65,8 @@ const babelOptions = (option) => {
   return options;
 }
 
+const buildNameOption = () => (isDev) ? "dist" : "build";
+
 const WEBPACK_CONFIG = {
   context: path.resolve(__dirname, "src"),
   mode: "development",
@@ -73,7 +75,7 @@ const WEBPACK_CONFIG = {
   },
   output: {
     filename: fileName("js"),
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, buildNameOption())
   },
   resolve: {
     extensions: disableExtensions(".js", ".ts"),
@@ -95,7 +97,8 @@ const WEBPACK_CONFIG = {
     new CopyWebpackPlugin({
       patterns: [
         { from: "assets/images", to: "assets/images" },
-        { from: "assets/fonts", to: "assets/fonts" }
+        { from: "assets/fonts", to: "assets/fonts" },
+        { from: "templates", to: "templates" }
       ]
     }),
     new MiniCssExtractPlugin({
