@@ -78,3 +78,7 @@ There is a tsconfig.json file that simply configures how your typescript files s
 - Documentation
 
 There is a \docs directory which is optional to add to your project, because basically all basic project documentation are pretty small and are written traditionally to top level project dir README.md file.
+
+- Eslint
+
+As you can there is no `.eslintrc` file in the project, you can create one and configure yourself for your needs and your style of coding in JavaScript.
