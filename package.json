@@ -4,6 +4,7 @@
   "description": "This is Webpack builder, ready to use configuration code with all needed to use directories and assets for your project to just copy and paste all the code, use it and definitely configure it for want.",
   "main": "./src/index.js",
   "type": "module",
+  "private": false,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
@@ -14,8 +15,8 @@
     "type": "git",
     "url": "git+https://github.com/ghost160111/Webpack-Builder.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Webpack 5", "Configuration", "Web Development", "JavaScript", "TypeScript"],
+  "author": "Jaloliddin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ghost160111/Webpack-Builder/issues"
