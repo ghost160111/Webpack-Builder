@@ -104,35 +104,58 @@ const isProd = !isDev;
 
 class WebpackTemplate {
   context = path.resolve(__dirname, "src");
+
   mode = "development";
+
   entry = {
-    main: "./index.js"
-  };
+    main: "./index.js",
+    vue: "./VueApp.js"
+  }
+
   output = {
     filename: this.fileName("js"),
-    path: path.resolve(__dirname, this.buildNameOption())
-  };
+    path: path.resolve(__dirname, this.buildNameOption()),
+    assetModuleFilename: this.assetFileName()
+  }
+
   resolve = {
-    extensions: this.disableExtensions(".js", ".ts"),
+    extensions: this.disableExtensions(".js", ".ts", ".jsx"),
     alias: {
       "@": path.resolve(__dirname, "src")
     }
-  };
+  }
+
   optimization = this.optimizations();
+
   devtool = isDev ? "source-map" : false;
+
   devServer = {
-    port: 5128
+    static: {
+      directory: path.join(__dirname, "public")
+    },
+    compress: true,
+    port: 5128,
+    client: {
+      overlay: true,
+      progress: true,
+      reconnect: true
+    },
+    historyApiFallback: true,
+    hot: true
   };
+
   plugins = [
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
       filename: "index.html",
-      template: "./index.html"
+      template: "./index.html",
+      favicon: "./assets/images/tree-icon.svg"
     }),
     new MiniCssExtractPlugin({
       filename: this.fileName("css")
     })
   ];
+
   module = {
     rules: [
       {
@@ -164,7 +187,15 @@ class WebpackTemplate {
         exclude: "/node_modules",
         use: {
           loader: "babel-loader",
-          options: this.babelOptions("ts")
+          options: this.babelOptions("@babel/preset-typescript")
+        }
+      },
+      {
+        test: /\.jsx$/i,
+        exclude: "/node-modules",
+        use: {
+          loader: "babel-loader",
+          options: this.babelOptions("@babel/preset-react")
         }
       }
     ]
@@ -205,8 +236,16 @@ class WebpackTemplate {
     );
   }
 
+  assetFileName() {
+    return isDev ? 'assets/[name].[ext]' : 'assets/[name].[hash].[ext]';
+  }
+
   fileName(ext) {
-    return isDev ? `[name].${ext}` : `[name].[fullhash].${ext}`;
+    switch (ext) {
+      case "css": return isDev ? `css/[name].${ext}` : `css/[name].[fullhash].${ext}`;
+      case "js": return isDev ? `js/[name].${ext}` : `js/[name].[fullhash].${ext}`;
+      default: return isDev ? `[name].${ext}` : `[name].[fullhash].${ext}`;
+    }
   }
 
   cssLoader(extra) {
@@ -228,9 +267,9 @@ class WebpackTemplate {
     const options = {
       presets: ["@babel/preset-env"]
     }
-  
+
     if (option) {
-      options["presets"].push("@babel/preset-typescript");
+      options["presets"].push(option);
     }
   
     return options;
@@ -242,12 +281,6 @@ class WebpackTemplate {
 }
 
 const TEMPLATE_EXAMPLE_WEBPACK_CONFIG = new WebpackTemplate();
-
-TEMPLATE_EXAMPLE_WEBPACK_CONFIG.addCopyWebpackPlugin([
-  { from: "assets/images", to: "assets/images" },
-  { from: "assets/fonts", to: "assets/fonts" },
-  { from: "templates", to: "templates" }
-]);
 
 export default TEMPLATE_EXAMPLE_WEBPACK_CONFIG;
 ```
