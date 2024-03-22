@@ -1,0 +1,49 @@
+@keyframes expandAnimation {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes closeAnimation {
+  from {
+    height: 100%;
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+@keyframes expandStatic {
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 75vh;
+  }
+}
+
+@keyframes backgroundAnim {
+  from {
+    background-color: darken($white, 40%);
+  }
+
+  to {
+    background-color: darken($white, 75%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    filter: opacity(0);
+  }
+
+  to {
+    filter: opacity(1);
+  }
+}

@@ -1,0 +1,24 @@
+@keyframes fadeinAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+#map {
+  position: absolute;
+  left: 0;
+  top: 4.5rem;
+  width: 100%;
+  height: 100%;
+  z-index: 98;
+}
+
+header,
+footer,
+#map {
+  animation: fadeinAnimation 3s ease;
+}

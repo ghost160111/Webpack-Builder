@@ -1,0 +1,81 @@
+/* Ggrid flex */
+
+/* $columns = number {how much do you have columns in your grid layouts} */
+@mixin grid-center-last( $columns ) {
+  $total_columns: $columns * 2;
+  $span: $total_columns / $columns;
+  $offset: $columns - 1;
+  $nth-child: if($columns % 2 == 0, 'odd', 'even');
+
+  display: grid;
+  grid-template-columns: repeat($total_columns, 1fr);
+
+  & > * {
+    grid-column: span $span;
+
+    &:nth-last-child(#{$offset}):nth-child(#{$nth-child}) {
+      grid-column: $span / span $span;
+    }
+  }
+}
+
+/* END */
+
+/*  element transition loop  */
+@mixin transitionDelay($count, $start:0, $delay:100) {
+  @for $i from 1 through $count {
+    &:nth-child(#{$i}) {
+      transition-delay: #{$start}ms;
+    }
+    $start: $start + $delay;
+  }
+}
+
+/*  element animation loop  */
+@mixin animationDelay($count, $start:0, $delay:100) {
+  @for $i from 1 through $count {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$start}ms;
+    }
+    $start: $start + $delay;
+  }
+}
+
+/*  END  */
+
+
+/* SPACES */
+
+@mixin spaces($space-unit, $type: rem) {
+  --space-10: #{calc(10 / $space-unit) + $type};
+  --space-15: #{calc(15 / $space-unit) + $type};
+  --space-20: #{calc(20 / $space-unit) + $type};
+  --space-25: #{calc(25 / $space-unit) + $type};
+  --space-30: #{calc(30 / $space-unit) + $type};
+  --space-35: #{calc(35 / $space-unit) + $type};
+  --space-40: #{calc(40 / $space-unit) + $type};
+  --space-45: #{calc(45 / $space-unit) + $type};
+  --space-50: #{calc(50 / $space-unit) + $type};
+  --space-55: #{calc(55 / $space-unit) + $type};
+  --space-60: #{calc(60 / $space-unit) + $type};
+  --space-65: #{calc(65 / $space-unit) + $type};
+  --space-70: #{calc(70 / $space-unit) + $type};
+  --space-75: #{calc(75 / $space-unit) + $type};
+  --space-80: #{calc(80 / $space-unit) + $type};
+  --space-85: #{calc(85 / $space-unit) + $type};
+  --space-90: #{calc(90 / $space-unit) + $type};
+  --space-95: #{calc(95 / $space-unit) + $type};
+  --space-100: #{calc(100 / $space-unit) + $type};
+  --space-110: #{calc(110 / $space-unit) + $type};
+  --space-120: #{calc(120 / $space-unit) + $type};
+  --space-130: #{calc(130 / $space-unit) + $type};
+  --space-140: #{calc(140 / $space-unit) + $type};
+  --space-150: #{calc(150 / $space-unit) + $type};
+  --space-160: #{calc(160 / $space-unit) + $type};
+  --space-170: #{calc(170 / $space-unit) + $type};
+  --space-180: #{calc(180 / $space-unit) + $type};
+  --space-190: #{calc(190 / $space-unit) + $type};
+  --space-200: #{calc(200 / $space-unit) + $type};
+}
+
+/* end SPACES */

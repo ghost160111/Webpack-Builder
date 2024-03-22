@@ -1,0 +1,3 @@
+# Source directory
+
+This is core directory where you write and keep tons of code to create projects, libraries and so on...

@@ -23,20 +23,16 @@ body {
   //overflow: hidden;
   //overflow-y: auto;
   font-feature-settings: 'pnum' on, 'lnum' on;
-  background-color: lighten($bg, 5%);
+  background-color: lighten($black, 5%);
   color: var(--white);
 
-  & .v-application {
+  &.v-application {
     font-family: var(--f1);
   }
 }
 
 a {
-  color: var(--red);
-
-  &:hover {
-    color: var(--red);
-  }
+  transition: all var(--animation);
 }
 
 h1,

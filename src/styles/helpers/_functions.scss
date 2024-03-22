@@ -1,0 +1,24 @@
+// Конвертирует px в rem. Основная единица rem
+@function rem ($size) {
+  @return #{calc($size / $base-fz) + rem};
+}
+
+// Конвертирует px в em. Основная единица em
+@function em ($size, $em: $base-fz) {
+  @return #{calc($size / $em) + em};
+}
+
+// Конвертирует px в vw. Основная единица viewWidth
+@function vw ($size, $vw-cur: 1920) {
+  @return #{calc($size / $vw-cur) * 100 + vw};
+}
+
+// Конвертирует px в vh. Основная единица viewHeight
+@function vh ($size, $vh-cur: 970) {
+  @return #{calc($size / $vh-cur) * 100 + vh};
+}
+
+// Get percent based on width
+@function setPercentage ($size, $width: 1920) {
+  @return (calc($size / $width) * 100) + 0%;
+}

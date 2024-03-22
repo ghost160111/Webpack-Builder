@@ -1,0 +1,146 @@
+@mixin animateTransform($animationType, $duration: 500ms, $transitionType: ease) {
+  @if ($animationType == "fromLeft") {
+    animation: fromLeft $duration ease;
+  } @else if ($animationType == "fromRight") {
+    animation: fromRight $duration $transitionType;
+  } @else if ($animationType == "fromTop") {
+    animation: fromTop $duration $transitionType;
+  }
+}
+
+@mixin animation($animationName, $duration: 500ms, $transitionType: ease, $infinite: null) {
+  @if ($infinite) {
+    animation: $animationName $duration $transitionType infinite;
+  } @else {
+    animation: $animationName $duration $transitionType;
+  }
+}
+
+@keyframes fromLeft {
+  from {
+    transform: translate(-50rem, 0);
+  }
+
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes fromRight {
+  from {
+    transform: translate(10rem, 0);
+  }
+
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes fromTop {
+  from {
+    transform: translate(0, -10rem);
+  }
+
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+nav-logo,
+nav-map-switch,
+nav-tree-stat,
+nav-user-settings {
+  @include animateTransform(fromLeft, 1000ms, ease);
+}
+
+nav-bar,
+nav-lang,
+nav-search {
+  @include animateTransform(fromTop, 700ms, ease);
+}
+
+nav-map-switch {
+  @media screen and (max-width: 1000px) {
+    margin-left: rem(12) !important;
+  }
+
+  @media screen and (max-width: 639px) {
+    margin-left: 0 !important;
+  }
+}
+
+nav-tree-stat {
+  @media screen and (max-width: 697px) {
+    filter: opacity(0);
+    visibility: hidden;
+    position: absolute;
+  }
+}
+
+nav-user-settings-color-change {
+  min-width: 100%;
+}
+
+nav-bar {
+  position: relative;
+}
+
+nav-user-settings {
+  @media screen and (max-width: 450px) {
+    filter: opacity(0);
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -10000;
+  }
+}
+
+nav-search {
+  @media screen and (max-width: 300px) {
+    filter: opacity(0);
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -10000;
+  }
+}
+
+@keyframes modalPopup {
+  from {
+    left: -100%;
+  }
+
+  to {
+    left: 0;
+  }
+}
+
+modal-overlay {
+  animation: modalPopup 1s ease;
+}
+
+left-overlay {
+  @media screen and (max-width: 500px) {
+    transform: translate(-23rem, 0) !important;
+    min-width: 23rem !important;
+    max-width: 23rem !important;
+
+    &.active {
+      transform: translate(0, 0) !important;
+    }
+  }
+}
+
+right-overlay {
+  @media screen and (max-width: 500px) {
+    transform: translate(0, 0) !important;
+    min-width: 23rem !important;
+    max-width: 23rem !important;
+
+    &.active {
+      transform: translate(-100%, 0) !important;
+    }
+  }
+}

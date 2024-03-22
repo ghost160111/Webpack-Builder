@@ -1,0 +1,21 @@
+.footer {
+  @extend .blurred-bg;
+
+  position: fixed;
+  display: block;
+
+  left: 0;
+  top: 100%;
+  transform: translate(0, -100%);
+
+  z-index: 100;
+
+  min-width: 100%;
+
+  min-height: rem(64);
+  max-height: rem(64);
+
+  transition: background-color 1s ease;
+
+  overflow-x: hidden;
+}

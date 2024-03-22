@@ -9,111 +9,71 @@ import TerserWebpackPlugin from "terser-webpack-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const isDev = process.env.NODE_ENV === "development";
 const isProd = !isDev;
 
-const disableExtensions = (...extensions) => {
-  if (extensions) {
-    return [...extensions]
-  }
-}
+class WebpackTemplate {
+  context = path.resolve(__dirname, "src");
 
-const optimization = () => {
-  const config = {
-    splitChunks: {
-      chunks: "all"
-    }
-  }
+  mode = "development";
 
-  if (isProd) {
-    config.minimizer = [
-      new CssMinimizerWebpackPlugin(),
-      new TerserWebpackPlugin(),
-    ]
-  }
-
-  return config;
-}
-
-const fileName = ext => isDev ? `[name].${ext}` : `[name].[fullhash].${ext}`;
-
-const cssLoader = (extra) => {
-  const loaders = [
-    {
-      loader: MiniCssExtractPlugin.loader,
-    },
-    "css-loader"
-  ]
-
-  if (extra) {
-    loaders.push(extra);
-  }
-  
-  return loaders;
-}
-
-const babelOptions = (option) => {
-  const options = {
-    presets: ["@babel/preset-env"]
-  }
-
-  if (option) {
-    options["presets"].push("@babel/preset-typescript");
-  }
-
-  return options;
-}
-
-const buildNameOption = () => (isDev) ? "dist" : "build";
-
-const WEBPACK_CONFIG = {
-  context: path.resolve(__dirname, "src"),
-  mode: "development",
-  entry: {
+  entry = {
     main: "./index.js",
-  },
-  output: {
-    filename: fileName("js"),
-    path: path.resolve(__dirname, buildNameOption())
-  },
-  resolve: {
-    extensions: disableExtensions(".js", ".ts"),
+  }
+
+  output = {
+    filename: this.fileName("js"),
+    path: path.resolve(__dirname, this.buildNameOption()),
+    assetModuleFilename: this.assetFileName()
+  }
+
+  resolve = {
+    extensions: this.disableExtensions(".js", ".ts", ".jsx"),
     alias: {
       "@": path.resolve(__dirname, "src")
     }
-  },
-  optimization: optimization(),
-  devtool: isDev ? "source-map" : false,
-  devServer: {
-    port: 5128
-  },
-  plugins: [
+  }
+
+  optimization = this.optimizations();
+
+  devtool = isDev ? "source-map" : false;
+
+  devServer = {
+    static: {
+      directory: path.join(__dirname, "public")
+    },
+    compress: true,
+    port: 5128,
+    client: {
+      overlay: true,
+      progress: true,
+      reconnect: true
+    },
+    historyApiFallback: true,
+    hot: true
+  };
+
+  plugins = [
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
       filename: "index.html",
-      template: "./index.html"
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: "assets/images", to: "assets/images" },
-        { from: "assets/fonts", to: "assets/fonts" },
-        { from: "templates", to: "templates" }
-      ]
+      template: "./index.html",
+      favicon: "./assets/images/tree-icon.svg"
     }),
     new MiniCssExtractPlugin({
-      filename: fileName("css")
-    }),
-  ],
-  module: {
+      filename: this.fileName("css")
+    })
+  ];
+
+  module = {
     rules: [
       {
         test: /\.css$/i,
-        use: cssLoader()
+        use: this.cssLoader()
       },
       {
         test: /\.(sass|scss)$/i,
-        use: cssLoader("sass-loader")
+        use: this.cssLoader("sass-loader")
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -128,7 +88,7 @@ const WEBPACK_CONFIG = {
         exclude: "/node_modules",
         use: {
           loader: "babel-loader",
-          options: babelOptions()
+          options: this.babelOptions()
         }
       },
       {
@@ -136,11 +96,99 @@ const WEBPACK_CONFIG = {
         exclude: "/node_modules",
         use: {
           loader: "babel-loader",
-          options: babelOptions("ts")
+          options: this.babelOptions("@babel/preset-typescript")
+        }
+      },
+      {
+        test: /\.jsx$/i,
+        exclude: "/node-modules",
+        use: {
+          loader: "babel-loader",
+          options: this.babelOptions("@babel/preset-react")
         }
       }
     ]
+  };
+
+  disableExtensions(...extensions) {
+    if (extensions) {
+      return [...extensions];
+    }
+  }
+
+  optimizations() {
+    const config = {
+      splitChunks: {
+        chunks: "all"
+      }
+    }
+
+    if (isProd) {
+      config.minimizer = [
+        new CssMinimizerWebpackPlugin(),
+        new TerserWebpackPlugin()
+      ];
+    }
+
+    return config;
+  }
+
+  addPlugin(plugin) {
+    this.plugins.push(plugin);
+  }
+
+  addCopyWebpackPlugin(patterns) {
+    this.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [...patterns]
+      })
+    );
+  }
+
+  assetFileName() {
+    return isDev ? 'assets/[name].[ext]' : 'assets/[name].[hash].[ext]';
+  }
+
+  fileName(ext) {
+    switch (ext) {
+      case "css": return isDev ? `css/[name].${ext}` : `css/[name].[fullhash].${ext}`;
+      case "js": return isDev ? `js/[name].${ext}` : `js/[name].[fullhash].${ext}`;
+      default: return isDev ? `[name].${ext}` : `[name].[fullhash].${ext}`;
+    }
+  }
+
+  cssLoader(extra) {
+    const loaders = [
+      {
+        loader: MiniCssExtractPlugin.loader
+      },
+      "css-loader"
+    ];
+
+    if (extra) {
+      loaders.push(extra);
+    }
+
+    return loaders;
+  }
+
+  babelOptions(option) {
+    const options = {
+      presets: ["@babel/preset-env"]
+    }
+
+    if (option) {
+      options["presets"].push(option);
+    }
+  
+    return options;
+  }
+
+  buildNameOption() {
+    return (isDev) ? "dist" : "build";
   }
 }
 
-export default WEBPACK_CONFIG;
+const TEMPLATE_EXAMPLE_WEBPACK_CONFIG = new WebpackTemplate();
+
+export default TEMPLATE_EXAMPLE_WEBPACK_CONFIG;
